@@ -11,6 +11,15 @@ jobs:
       - name: Spit out Github ref
         run: echo $GITHUB_REF
 
+      - name: Run spell without env var
+        run: |
+          echo refs/heads/master \
+          | sed 's/refs\/heads\///' \
+          | sed 's/master/dev/' \
+          | sed 's/feature\///' \
+          | sed 's/release\///' \
+          | sed 's/$/.'"$(git rev-list --no-merges --count refs/heads/master).$(git rev-parse --short refs/heads/master)"'/'
+
       - name: Run spell the old fashioned way
         run: |
           export BUILD_ID=$(echo $GITHUB_REF \
