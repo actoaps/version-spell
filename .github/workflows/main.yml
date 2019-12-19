@@ -8,6 +8,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
+      - name: Spit out Github ref
+        run: echo $GITHUB_REF
+
       - name: Run spell the old fashioned way
         run: |
           export BUILD_ID=$(echo $GITHUB_REF \
