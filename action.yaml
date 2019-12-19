@@ -1,0 +1,8 @@
+name: 'Version Spell'
+description: 'The magic spell of software versions at Acto ApS'
+outputs:
+  version:
+    description: 'Software version'
+runs:
+  using: 'node12'
+  main: 'index.js'

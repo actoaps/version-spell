@@ -1,0 +1,13 @@
+{
+  "name": "version-spell",
+  "version": "1.0.0",
+  "description": "The magic spell of software versions at Acto ApS",
+  "main": "index.js",
+  "repository": "git@github.com:actoaps/version-spell.git",
+  "author": "Elias Jørgensen <eliaszakarias@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "1.2.0",
+    "@actions/github": "2.0.0"
+  }
+}
