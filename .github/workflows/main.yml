@@ -38,4 +38,4 @@ jobs:
         uses: actoaps/version-spell@master
 
       - name: Get action output
-        run: echo "Test 1234 ${{ steps.spell.version }}"
+        run: echo ${{ steps.spell.outputs.version }}
