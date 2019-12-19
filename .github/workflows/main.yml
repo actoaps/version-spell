@@ -5,6 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test action
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+        
       - name: Test version
         id: version
         uses: actoaps/version-spell@master
