@@ -19,7 +19,7 @@ jobs:
 
       - name: Test version
         id: spell
-        uses: actoaps/version-spell@master
+        uses: actoaps/version-spell@v1
 
       - name: Get action output
         run: echo ${{ steps.spell.version }}

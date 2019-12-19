@@ -8,6 +8,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
 
+      - name: Run spell the old fashioned way
+        run: |
+          export BUILD_ID=$(echo $GITHUB_REF \
+          | sed 's/refs\/heads\///' \
+          | sed 's/master/dev/' \
+          | sed 's/feature\///' \
+          | sed 's/release\///' \
+          | sed 's/$/.'"$(git rev-list --no-merges --count $GITHUB_REF).$(git rev-parse --short $GITHUB_REF)"'/')
+
+          echo $BUILD_ID
+
       - name: Test version
         id: spell
         uses: actoaps/version-spell@master
