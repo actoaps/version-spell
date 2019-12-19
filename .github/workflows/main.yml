@@ -13,4 +13,4 @@ jobs:
         uses: actoaps/version-spell@master
 
       - name: Get action output
-        run: echo ${{ steps.spell.version }}
+        run: echo "${{ steps.spell.version }}"
