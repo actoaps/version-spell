@@ -22,13 +22,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Spit out Github ref
-        run: echo $GITHUB_REF
-
-      - name: Test version
+      - name: Generate Build ID
         id: spell
         uses: actoaps/version-spell@v1
 
-      - name: Get action output
+      - name: Use BUILD ID
         run: echo ${{ steps.spell.outputs.version }}
 ```
