@@ -10,8 +10,7 @@ const theSpell = 'echo $GITHUB_REF \\\n' +
 
 try {
 	const result = execSync(theSpell)
-	console.log(result.toString())
-	// core.setOutput('version', result)
+	core.setOutput('version', result)
 } catch (error) {
-	// core.setFailed(error.message)
+	core.setFailed(error.message)
 }
