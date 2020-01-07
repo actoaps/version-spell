@@ -9,6 +9,7 @@ const theSpell = 'echo `git branch | grep \\* | cut -d \' \' -f2` \\\n' +
 
 try {
 	const result = execSync(theSpell)
+	core.info(result)
 	core.setOutput('version', result)
 } catch (error) {
 	core.setFailed(error.message)
