@@ -1,11 +1,11 @@
 const core = require('@actions/core')
 const { execSync } = require('child_process')
 
-const theSpell = 'echo `git rev-parse --abbrev-ref HEAD` \\\n' +
+const theSpell = 'echo `git branch --show-current` \\\n' +
 	'| sed \'s/master/dev/\' \\\n' +
 	'| sed \'s/feature\\///\' \\\n' +
 	'| sed \'s/release\\///\' \\\n' +
-	'| sed \'s/$/.\'"$(git rev-list --no-merges --count `git rev-parse --abbrev-ref HEAD`).$(git describe --always)"\'/\''
+	'| sed \'s/$/.\'"$(git rev-list --no-merges --count $GITHUB_REF).$(git describe --always)"\'/\''
 
 try {
 	const result = execSync(theSpell)
