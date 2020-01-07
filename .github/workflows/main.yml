@@ -13,6 +13,12 @@ jobs:
       - name: Spit out Github ref
         run: echo $GITHUB_REF
 
+      - name: Spit out branches
+        run: git branch --list
+
+      - name: Spit out status
+        run: git status
+
       - name: Test version
         id: spell
         uses: actoaps/version-spell@master
