@@ -16,8 +16,8 @@ jobs:
       - name: Spit out branches
         run: git branch --list
 
-      - name: Spit out status
-        run: git status
+      - name: Spit out refs
+        run: git for-each-ref
 
       - name: Test version
         id: spell
