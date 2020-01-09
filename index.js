@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const { execSync } = require('child_process')
 
-const theSpell = 'echo $GITHUB_REF \\\n' +
+const theSpell = 'git for-each-ref | grep -v $GITHUB_REF | sed \'s/^.*origin\\///\' \\\n' +
 	'| sed \'s/master/dev/\' \\\n' +
 	'| sed \'s/feature\\///\' \\\n' +
 	'| sed \'s/release\\///\' \\\n' +
