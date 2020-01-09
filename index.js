@@ -9,8 +9,6 @@ const theSpell = 'git for-each-ref | grep -v $GITHUB_REF | sed \'s/^.*origin\\//
 
 try {
 	const result = execSync(theSpell)
-	core.
-
 	core.info(result)
 	core.setOutput('version', result)
 } catch (error) {
