@@ -10,11 +10,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Spit out Github ref
-        run: echo $($GITHUB_REF##*/)
+      - name: Spit out Github ref magic
+        run: echo ${GITHUB_REF##*/}
 
-      - name: Spit out Github head ref
-        run: echo $($GITHUB_HEAD_REF:-$GITHUB_REF)
+      - name: Spit out Github head ref or ref
+        run: echo ${GITHUB_HEAD_REF:-GITHUB_REF}
 
       - name: Spit out Github head ref
         run: echo $GITHUB_HEAD_REF
