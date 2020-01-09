@@ -20,7 +20,7 @@ jobs:
         run: git for-each-ref
 
       - name: Spit out magic refs
-        run: git for-each-ref --format='%(refname:short)' | grep -v $GITHUB_REF | sed 's/origin\///'
+        run: git for-each-ref | grep -v $GITHUB_REF | sed 's/^.*origin\///'
 
       - name: Test version
         id: spell
