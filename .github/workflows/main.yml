@@ -14,7 +14,7 @@ jobs:
         run: echo $GITHUB_REF
 
       - name: Spit out branches
-        run: git ls-remote --heads origin | grep $(git rev-parse HEAD)
+        run: git ls-remote --heads origin | grep $(git rev-parse HEAD) | sed 's?.*refs/heads/??'
 
       - name: Test version
         id: spell
