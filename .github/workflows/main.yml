@@ -14,13 +14,7 @@ jobs:
         run: echo $GITHUB_REF
 
       - name: Spit out branches
-        run: git branch --list
-
-      - name: Spit out refs
-        run: git for-each-ref
-
-      - name: Spit out magic refs
-        run: git for-each-ref | grep -v $GITHUB_REF | sed 's/^.*origin\///'
+        run: git ls-remote --heads origin | grep $(git rev-parse HEAD)
 
       - name: Test version
         id: spell
