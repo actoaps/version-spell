@@ -8,7 +8,7 @@ const theSpell = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | se
 	'| sed \'s/$/.\'"$(git rev-list --no-merges --count $GITHUB_REF).$(git describe --always $GITHUB_REF)"\'/\''
 
 try {
-	const result = execSync(theSpell).trim()
+	const result = execSync(theSpell).toString().trim()
 	core.info(result)
 	core.setOutput('version', result)
 } catch (error) {
