@@ -5,6 +5,7 @@ const theSpell = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | se
 	'| sed \'s/master/dev/\' \\\n' +
 	'| sed \'s/feature\\///\' \\\n' +
 	'| sed \'s/release\\///\' \\\n' +
+	'| sed \'s/test\\///\' \\\n' +
 	'| sed \'s/$/.\'"$(git rev-list --no-merges --count $GITHUB_REF).$(git describe --always $GITHUB_REF)"\'/\''
 
 try {
