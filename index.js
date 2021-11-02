@@ -12,7 +12,8 @@ try {
 	const commitCount = execSync(commitCountCommand).toString().trim()
 	const descriptionHash = execSync(descriptionHashCommand).toString().trim()
 
-	const branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))?.[0]?.match(/(?<=refs\/heads\/).+/)?.[0]
+	let branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))[0]
+	if (branch) branch = branch.match(/(?<=refs\/heads\/).+/)[0]
 
 	if (branch == null || branch === '') core.setFailed('Could not extract branch name')
 
