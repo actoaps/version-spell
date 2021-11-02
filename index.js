@@ -1,17 +1,31 @@
 const core = require('@actions/core')
 const { execSync } = require('child_process')
 
-const theSpell = 'git ls-remote --heads origin | grep $(git rev-parse HEAD) | sed \'s?.*refs/heads/??\' \\\n' +
-	'| sed \'s/master/dev/\' \\\n' +
-	'| sed \'s/feature\\///\' \\\n' +
-	'| sed \'s/release\\///\' \\\n' +
-	'| sed \'s/test\\///\' \\\n' +
-	'| sed \'s/$/.\'"$(git rev-list --no-merges --count $GITHUB_REF).$(git describe --always $GITHUB_REF)"\'/\''
+const lsRemoteOriginCommand = 'git ls-remote --heads origin'
+const headCommitCommand = 'git rev-parse HEAD'
+const commitCountCommand = 'git rev-list --no-merges --count master'
+const descriptionHashCommand = 'git describe --always master'
 
 try {
-	const result = execSync(theSpell).toString().trim()
-	core.info(result)
-	core.setOutput('version', result)
+	const lsRemoteOrigin = execSync(lsRemoteOriginCommand).toString().trim().split('\n')
+	const headCommit = execSync(headCommitCommand).toString().trim()
+	const commitCount = execSync(commitCountCommand).toString().trim()
+	const descriptionHash = execSync(descriptionHashCommand).toString().trim()
+
+	const branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))?.[0]?.match(/(?<=refs\/heads\/).+/)?.[0]
+
+	if (branch == null || branch === '') core.setFailed('Could not extract branch name')
+
+	const tag = branch
+		.replace('master', 'dev')
+		.replace('feature/', '')
+		.replace('release/', '')
+		.replace('test/', '')
+
+	const version = `${tag}.${commitCount}.${descriptionHash}`
+
+	core.info('Version is: ' + version)
+	core.setOutput('version', version)
 } catch (error) {
 	core.setFailed(error.message)
 }
