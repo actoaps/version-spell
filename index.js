@@ -4,7 +4,7 @@ const { execSync } = require('child_process')
 const lsRemoteOriginCommand = 'git ls-remote --heads origin'
 const headCommitCommand = 'git rev-parse HEAD'
 const commitCountCommand = 'git rev-list --no-merges --count origin/master --'
-const descriptionHashCommand = 'git describe --always master --'
+const descriptionHashCommand = 'git describe --always origin/master --'
 
 try {
 	const lsRemoteOrigin = execSync(lsRemoteOriginCommand).toString().trim().split('\n')
