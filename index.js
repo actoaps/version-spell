@@ -2,15 +2,19 @@ const core = require('@actions/core')
 const { execSync } = require('child_process')
 
 const lsRemoteOriginCommand = 'git ls-remote --heads origin'
-const headCommitCommand = 'git rev-parse origin/HEAD'
+const headCommitCommand = 'git rev-parse HEAD'
 const commitCountCommand = 'git rev-list --no-merges --count origin/master --'
 const descriptionHashCommand = 'git describe --always origin/master --'
 
 try {
 	const lsRemoteOrigin = execSync(lsRemoteOriginCommand).toString().trim().split('\n')
+	console.log(lsRemoteOrigin)
 	const headCommit = execSync(headCommitCommand).toString().trim()
+	console.log(headCommit)
 	const commitCount = execSync(commitCountCommand).toString().trim()
+	console.log(commitCount)
 	const descriptionHash = execSync(descriptionHashCommand).toString().trim()
+	console.log(descriptionHash)
 
 	let branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))[0]
 	if (branch) branch = branch.match(/(?<=refs\/heads\/).+/)[0]
