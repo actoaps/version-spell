@@ -18,13 +18,14 @@ jobs:
     name: Test action
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - name: Generate Build ID
         id: spell
-        uses: actoaps/version-spell@v2
+        uses: actoaps/version-spell@v4
 
       - name: Use Build ID
         run: echo ${{ steps.spell.outputs.version }}
