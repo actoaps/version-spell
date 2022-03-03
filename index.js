@@ -2,7 +2,7 @@ const core = require('@actions/core')
 const { execSync } = require('child_process')
 
 const lsRemoteOriginCommand = 'git ls-remote --heads origin'
-const headCommitCommand = 'git rev-parse HEAD'
+const headCommitCommand = 'git log --pretty=format:\'%h\' -n 1'
 const commitCountCommand = 'git rev-list --no-merges --count origin/master --'
 const descriptionHashCommand = 'git describe --always origin/master --'
 
