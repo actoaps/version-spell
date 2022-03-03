@@ -2,7 +2,7 @@ const core = require('@actions/core')
 const { execSync } = require('child_process')
 
 const lsRemoteOriginCommand = 'git ls-remote --heads origin'
-const headCommitCommand = 'git rev-parse HEAD'
+const headCommitCommand = 'git rev-parse origin/HEAD'
 const commitCountCommand = 'git rev-list --no-merges --count origin/master --'
 const descriptionHashCommand = 'git describe --always origin/master --'
 
@@ -15,7 +15,10 @@ try {
 	let branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))[0]
 	if (branch) branch = branch.match(/(?<=refs\/heads\/).+/)[0]
 
-	if (branch == null || branch === '') core.setFailed('Could not extract branch name')
+	if (branch == null || branch === '') {
+		core.setFailed('Could not extract branch name')
+		return
+	}
 
 	const tag = branch
 		.replace('master', 'dev')
