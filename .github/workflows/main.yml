@@ -2,7 +2,12 @@ on: [push]
 
 jobs:
   test_action:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2019]
+
+    runs-on: ${{ matrix.os }}
+
     name: Test action
     steps:
       - name: Checkout code
@@ -13,9 +18,6 @@ jobs:
 
       - name: Spit out Github ref
         run: echo $GITHUB_REF
-
-      - name: Spit out branches
-        run: git ls-remote --heads origin | grep $(git rev-parse HEAD) | sed 's?.*refs/heads/??'
 
       - name: Test version
         id: spell
