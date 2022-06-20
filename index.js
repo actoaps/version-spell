@@ -25,6 +25,7 @@ try {
 		.replace('feature/', '')
 		.replace('release/', '')
 		.replace('test/', '')
+		.replace(/[/\\?%*:|"<>]/g, '-')
 
 	const version = `${tag}.${commitCount}.${descriptionHash}`
 
