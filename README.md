@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate Build ID
         id: spell
-        uses: actoaps/version-spell@v4
+        uses: actoaps/version-spell@v5
 
       - name: Use Build ID
         run: echo ${{ steps.spell.outputs.version }}

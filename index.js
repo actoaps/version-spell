@@ -1,33 +1,32 @@
 const core = require('@actions/core')
 const { execSync } = require('child_process')
 
-const lsRemoteOriginCommand = 'git ls-remote --heads origin'
-const headCommitCommand = 'git rev-parse HEAD'
-const commitCountCommand = 'git rev-list --no-merges --count origin/master --'
-const descriptionHashCommand = 'git describe --always origin/master --'
+const commitCountCommand = 'git rev-list --count HEAD'
+const descriptionHashCommand = 'git describe --always'
+const branchCommand = 'git rev-parse --abbrev-ref HEAD'
 
 try {
-	const lsRemoteOrigin = execSync(lsRemoteOriginCommand).toString().trim().split('\n')
-	const headCommit = execSync(headCommitCommand).toString().trim()
 	const commitCount = execSync(commitCountCommand).toString().trim()
 	const descriptionHash = execSync(descriptionHashCommand).toString().trim()
-
-	let branch = lsRemoteOrigin.filter(x => x.startsWith(headCommit))[0]
-	if (branch) branch = branch.match(/(?<=refs\/heads\/).+/)[0]
+	const branch = execSync(branchCommand).toString().trim()
 
 	if (branch == null || branch === '') {
 		core.setFailed('Could not extract branch name')
 		return
 	}
 
-	const tag = branch
-		.replace('master', 'dev')
-		.replace('feature/', '')
-		.replace('release/', '')
-		.replace('test/', '')
-		.replace(/[/\\?%*:|"<>]/g, '-')
+	let version
 
-	const version = `${tag}.${commitCount}.${descriptionHash}`
+	const num = branch.replace('release/', '')
+		.replace('test/', '')
+	if (num === '') {
+		version = `${num}.${commitCount}-${descriptionHash}`
+	} else {
+		const tag = branch
+			.replace('master', 'dev')
+			.replace(/[/\\?%*:|"<>]/g, '-')
+		version = `${tag}.${commitCount}-${descriptionHash}`
+	}
 
 	core.info('Version is: ' + version)
 	core.setOutput('version', version)
